@@ -1,0 +1,45 @@
+db:
+  container_name: db
+  image: mariadb
+  restart: always
+  volumes:
+    - ./data/mysql:/var/lib/mysql
+  env_file:
+    - ./.env
+
+app:
+  container_name: app
+  build: ./
+  restart: always
+  links:
+    - db
+  volumes:
+    - ./data/piwik/config:/var/www/html/config
+  env_file:
+    - ./.env
+
+server:
+  container_name: server
+  image: nginx
+  ports:
+    - "80:80"
+    - "443:443"
+  restart: always
+  links:
+    - app
+  volumes:
+    - ./nginx/linode.conf:/etc/nginx/nginx.conf:ro
+  volumes_from:
+    - app
+
+cron:
+  container_name: cron
+  build: ./
+  command: cron -f
+  restart: always
+  links:
+    - db
+  volumes:
+    - ./piwik/crontab:/etc/cron.d/piwik
+  volumes_from:
+    - app
