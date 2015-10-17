@@ -1,23 +1,19 @@
-# docker-piwik-linode
+# docker-piwik
 This `docker-compose.yml` installs Piwik.
 
 
 # Environments
 The root `docker-compose.yml` is the base of the environment specific configurations, so it does not links containers, nor creates the volumes.
 
+* All the environments have a `.env` file that defines the `MariaDB` credentials.
+
 ## Development
 Exposes ports 980 and 9443, so it should not conflict with your local servers.
 `docker-compose -f ./environments/development/docker-compose.yml up -d`
 
-### .env
-This file defines the `MariaDB` credentials.
-
 ## Production
 Exposes ports 80 and 443.
 `docker-compose -f ./environments/production/docker-compose.yml up -d`
-
-### .env
-This file defines the `MariaDB` credentials.
 
 
 # Data
@@ -39,19 +35,11 @@ The `piwik` folder includes the entrypoint of the `app` and the configuration of
 ## PHP
 The `php` folder includes several PHP configuration files that are used during the Piwik installation.
 
-could be used for Linode
-php-fpm?
-/usr/local/etc/php-fpm.conf.default
-/usr/local/etc/php-fpm.conf
-/usr/local/etc/php/conf.d/
-
 ## Nginx
-The `nginx` folder includes the Nginx configuration that is used in the `server` container.
-/etc/ngix/conf.d/linode.cnf
+The `nginx` folder includes the base Nginx configuration that is used in the `server` container.
 
 ## MariaDB
-The `mariadb` folder includes the MariaDB configuration that is used in the `server` container.
-/etc/mysql/conf.d/linode.cnf
+The `mariadb` folder includes the base MariaDB configuration that is used in the `server` container.
 
 
 # Authors

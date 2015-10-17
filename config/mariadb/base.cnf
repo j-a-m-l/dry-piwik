@@ -1,0 +1,6 @@
+max_connections = 75
+# Change to 64M?
+key_buffer = 32M
+max_allowed_packet = 1M
+thread_stack = 128K
+table_cache = 32
