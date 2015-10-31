@@ -5,10 +5,10 @@ db:
   env_file:
     - ./.env
 
-app:
+web:
   extends:
     file: ../../docker-compose.yml
-    service: app
+    service: web
   links:
     - db
   env_file:
@@ -22,9 +22,9 @@ server:
     - "980:80"
     - "9443:443"
   links:
-    - app
+    - web
   volumes_from:
-    - app
+    - web
 
 cron:
   extends:
@@ -33,4 +33,4 @@ cron:
   links:
     - db
   volumes_from:
-    - app
+    - web

@@ -6,8 +6,8 @@ db:
     - ./config/mariadb/base.cnf:/etc/mysql/conf.d/base.cnf:ro
     - ./data/mariadb:/var/lib/mysql
 
-app:
-  container_name: piwik-app
+web:
+  container_name: piwik-web
   build: .
   restart: always
   volumes:

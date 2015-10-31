@@ -1,4 +1,4 @@
-# docker-piwik
+# dry-docker-piwik
 This `docker-compose.yml` installs Piwik.
 
 
@@ -9,11 +9,20 @@ The root `docker-compose.yml` is the base of the environment specific configurat
 
 ## Development
 Exposes ports 980 and 9443, so it should not conflict with your local servers.
-`docker-compose -f ./environments/development/docker-compose.yml up -d`
+`
+docker-compose -p piwik-development -f ./environments/development/docker-compose.yml up -d
+`
+Or
+`
+COMPOSE_FILE=./environments/development/docker-compose.yml
+docker-compose -p piwik-development up -d
+`
 
 ## Production
 Exposes ports 80 and 443.
-`docker-compose -f ./environments/production/docker-compose.yml up -d`
+`
+docker-compose -p piwik-production -f ./environments/production/docker-compose.yml up -d
+`
 
 
 # Data
@@ -30,16 +39,16 @@ The main `Dockerfile` installs Piwik, although the final steps should be perform
 Use `db` as the "Database Server".
 
 ## Piwik
-The `piwik` folder includes the entrypoint of the `app` and the configuration of the `cron` containers.
+The `config/piwik` folder includes the entrypoint of the `web` and the configuration of the `cron` containers.
 
 ## PHP
-The `php` folder includes several PHP configuration files that are used during the Piwik installation.
+The `config/php` folder includes several PHP configuration files that are used during the Piwik installation.
 
 ## Nginx
-The `nginx` folder includes the base Nginx configuration that is used in the `server` container.
+The `config/nginx` folder includes the base Nginx configuration that is used in the `server` container.
 
 ## MariaDB
-The `mariadb` folder includes the base MariaDB configuration that is used in the `server` container.
+The `config/mariadb` folder includes the base MariaDB configuration that is used in the `server` container.
 
 
 # Authors
