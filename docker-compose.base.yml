@@ -1,0 +1,29 @@
+data:
+  container_name: piwik-data
+  image: mariadb:5.5
+  command: '/bin/true'
+  volumes:
+    - /var/lib/mysql
+
+db:
+  container_name: piwik-db
+  image: mariadb:5.5
+  restart: always
+
+web:
+  container_name: piwik-web
+  build: ./piwik/
+  restart: always
+  volumes:
+    - /var/www/html
+
+cron:
+  container_name: piwik-cron
+  build: ./piwik/
+  restart: always
+  command: cron -f
+
+server:
+  container_name: piwik-server
+  build: ./nginx/
+  restart: always

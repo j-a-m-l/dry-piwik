@@ -1,0 +1,42 @@
+data:
+  extends:
+    file: docker-compose.base.yml
+    service: data
+
+db:
+  extends:
+    file: docker-compose.base.yml
+    service: db
+  volumes_from:
+    - data
+  env_file: ./development.env
+
+web:
+  extends:
+    file: docker-compose.base.yml
+    service: web
+  links:
+    - db:database
+  env_file: ./development.env
+
+cron:
+  extends:
+    file: docker-compose.base.yml
+    service: cron
+  links:
+    - db:database
+  volumes_from:
+    - web
+  env_file: ./development.env
+
+server:
+  extends:
+    file: docker-compose.base.yml
+    service: server
+  ports:
+    - '8080:80'
+    - '4443:443'
+  links:
+    - web
+  volumes_from:
+    - web

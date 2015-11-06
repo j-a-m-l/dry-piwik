@@ -6,3 +6,5 @@
  * Configure the GeoIP database updates
  * Use MySQL Tuner
  * More Nginx optimizations
+ * Daily backup
+ * Improve the `README`.
